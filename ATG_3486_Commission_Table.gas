@@ -1,0 +1,452 @@
+Program.Sub.ScreenSU.Start
+gui.F_Commission..create
+gui.F_Commission..caption("Commissions")
+gui.F_Commission..size(6900,4200)
+gui.F_Commission..position(0,0)
+gui.F_Commission..event(resize,f_commission_resize)
+gui.F_Commission..event(unload,f_commission_unload)
+gui.F_Commission..alwaysontop(False)
+gui.F_Commission..fontname("Arial")
+gui.F_Commission..fontsize(8)
+gui.F_Commission..forecolor(0)
+gui.F_Commission..fontstyle(,,,,)
+gui.F_Commission..BackColor(-2147483633)
+gui.F_Commission..controlbox(True)
+gui.F_Commission..maxbutton(True)
+gui.F_Commission..minbutton(True)
+gui.F_Commission..mousepointer(0)
+gui.F_Commission..moveable(True)
+gui.F_Commission..sizeable(True)
+gui.F_Commission..ShowInTaskBar(True)
+gui.F_Commission..titlebar(True)
+gui.F_Commission.gsfgCommissions.create(gsflexgrid)
+gui.F_Commission.gsfgCommissions.FixedRows(0)
+gui.F_Commission.gsfgCommissions.FixedCols(0)
+gui.F_Commission.gsfgCommissions.visible(True)
+gui.F_Commission.gsfgCommissions.size(6450,3100)
+gui.F_Commission.gsfgCommissions.zorder(0)
+gui.F_Commission.gsfgCommissions.position(100,100)
+gui.F_Commission.gsfgCommissions.enabled(True)
+gui.F_Commission.gsfgCommissions.event(cellenter,gsfgcommissions_cellenter)
+gui.F_Commission.gsfgCommissions.event(commandclick,gsfgcommissions_commandclick)
+gui.F_Commission.cmdSave.create(button)
+gui.F_Commission.cmdSave.caption("Save")
+gui.F_Commission.cmdSave.visible(True)
+gui.F_Commission.cmdSave.size(855,375)
+gui.F_Commission.cmdSave.zorder(0)
+gui.F_Commission.cmdSave.position(100,3300)
+gui.F_Commission.cmdSave.enabled(True)
+gui.F_Commission.cmdSave.fontname("Arial")
+gui.F_Commission.cmdSave.fontsize(8)
+gui.F_Commission.cmdSave.event(click,cmdsave_click)
+gui.F_Commission.cmdAdd.create(button)
+gui.F_Commission.cmdAdd.caption("Add Vendor")
+gui.F_Commission.cmdAdd.visible(True)
+gui.F_Commission.cmdAdd.size(1080,375)
+gui.F_Commission.cmdAdd.zorder(0)
+gui.F_Commission.cmdAdd.position(1100,3300)
+gui.F_Commission.cmdAdd.enabled(True)
+gui.F_Commission.cmdAdd.fontname("Arial")
+gui.F_Commission.cmdAdd.fontsize(8)
+gui.F_Commission.cmdAdd.event(click,cmdadd_click)
+gui.F_Commission.txt1.create(textbox,"",False,1215,300,0,2900,3300,True,0,Arial,8,255,1)
+gui.F_Commission.lblLoading.create(label,"Loading...",False,6180,615,1,1200,1200,True,0,Arial,28,-2147483633,0)
+
+
+gui.F_Percent..create
+gui.F_Percent..caption("Percent Comm")
+gui.F_Percent..size(5775,1575)
+gui.F_Percent..position(0,0)
+gui.F_Percent..event(unload,f_percent_unload)
+gui.F_Percent..alwaysontop(False)
+gui.F_Percent..fontname("Arial")
+gui.F_Percent..fontsize(8)
+gui.F_Percent..forecolor(0)
+gui.F_Percent..fontstyle(,,,,)
+gui.F_Percent..BackColor(-2147483633)
+gui.F_Percent..controlbox(True)
+gui.F_Percent..maxbutton(False)
+gui.F_Percent..minbutton(True)
+gui.F_Percent..mousepointer(0)
+gui.F_Percent..moveable(True)
+gui.F_Percent..sizeable(False)
+gui.F_Percent..ShowInTaskBar(True)
+gui.F_Percent..titlebar(True)
+gui.F_Percent.lbl1.create(label,"Order No",True,1935,255,1,100,100,True,0,Arial,8,-2147483633,0)
+gui.F_Percent.lbl2.create(label,"Seq",True,1935,240,1,1400,100,True,0,Arial,8,-2147483633,0)
+gui.F_Percent.txtOrderNo.create(textbox,"",True,1200,300,0,100,300,False,0,Arial,8,-2147483643,1)
+gui.F_Percent.txtSeq.create(textbox,"",True,1200,300,0,1400,300,False,0,Arial,8,-2147483643,1)
+gui.F_Percent.lbl3.create(label,"Vendor No",True,1935,255,1,2700,100,True,0,Arial,8,-2147483633,0)
+gui.F_Percent.txtVendor.create(textbox,"",True,1600,300,0,2700,300,False,0,Arial,8,-2147483643,1)
+gui.F_Percent.lbl4.create(label,"Percent Comm",True,1935,255,1,4400,100,True,0,Arial,8,-2147483633,0)
+gui.F_Percent.txtPercent.create(textbox,"0.0",True,1200,300,0,4400,300,True,0,Arial,8,-2147483643,1)
+gui.F_Percent.txtPercent.numericonly(1)
+gui.F_Percent.txtPercent.event(gotfocus,txtpercent_gotfocus)
+gui.F_Percent.cmdSaveSeq.create(button)
+gui.F_Percent.cmdSaveSeq.caption("Save")
+gui.F_Percent.cmdSaveSeq.visible(True)
+gui.F_Percent.cmdSaveSeq.size(855,375)
+gui.F_Percent.cmdSaveSeq.zorder(0)
+gui.F_Percent.cmdSaveSeq.position(100,700)
+gui.F_Percent.cmdSaveSeq.enabled(True)
+gui.F_Percent.cmdSaveSeq.fontname("Arial")
+gui.F_Percent.cmdSaveSeq.fontsize(8)
+gui.F_Percent.cmdSaveSeq.event(click,cmdsaveseq_click)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sOrderNo.Declare(String)
+Variable.Global.bLoaded.Declare(Boolean,False)
+Variable.Global.Row.Declare(Long,-1)
+Variable.Global.Value.Declare(Float,0.0)
+Variable.Global.bEnteredCell.Declare(Boolean,False)
+Variable.Global.sOldValue.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.If(V.Caller.Hook,=,11560)
+	V.Passed.000201.Set("Commission")
+	F.Intrinsic.Control.end
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Caller.Hook,=,14501)
+	V.Passed.000049.Set("Commission (Y)")
+	F.Intrinsic.Control.end
+F.Intrinsic.Control.EndIf
+'Hook 11910
+
+V.Local.iC.Declare(Long)
+'V.Global.sOrderNo.Set("0000200")
+F.Intrinsic.String.LPad(V.Passed.000003.Trim,"0",7,V.Global.sOrderNo)
+
+F.Intrinsic.Control.If(V.Global.sOrderNo.Trim,=,"")
+	F.Intrinsic.UI.Msgbox("Select an order")
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.elseIf(V.Global.sOrderNo.Trim,=,"0")
+	F.Intrinsic.UI.Msgbox("Select an order")
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.EndIf
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+Gui.F_Commission.gsfgCommissions.Rows(2)
+Gui.F_Commission.gsfgCommissions.Cols(5)
+Gui.F_Commission.gsfgCommissions.TextMatrix(0,0,"Order No")
+Gui.F_Commission.gsfgCommissions.ColWidth(0,"1500")
+Gui.F_Commission.gsfgCommissions.TextMatrix(1,0,"Seq")
+Gui.F_Commission.gsfgCommissions.ColWidth(1,"1000")
+Gui.F_Commission.gsfgCommissions.TextMatrix(2,0,"Vendor No")
+Gui.F_Commission.gsfgCommissions.ColWidth(2,"1500")
+Gui.F_Commission.gsfgCommissions.TextMatrix(3,0,"Percent Comm")
+Gui.F_Commission.gsfgCommissions.ColWidth(3,"1500")
+Gui.F_Commission.gsfgCommissions.TextMatrix(4,0,"")
+Gui.F_Commission.gsfgCommissions.ColWidth(4,"600")
+
+F.Intrinsic.Control.For(V.Local.iC,0,3,1)
+	Gui.F_Commission.gsfgCommissions.BuildStyle(1,V.Local.iC,"type","locked","true")
+	Gui.F_Commission.gsfgCommissions.BuildStyle(1,V.Local.iC,"format","alignment","2")
+F.Intrinsic.Control.Next(V.Local.iC)
+Gui.F_Commission.gsfgCommissions.BuildStyle(1,4,"type","command","Delete")
+
+F.Intrinsic.Control.CallSub("LoadVendors")
+
+
+Program.Sub.Main.End
+
+program.sub.f_commission_unload.start
+f.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+program.sub.f_commission_unload.end
+
+Program.Sub.LoadVendors.Start
+V.Local.sQuery.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.iRows.Declare(Long,1)
+V.Local.iR.Declare(Long)
+Gui.F_Commission..Visible(False)
+Gui.F_Commission.gsfgCommissions.Rows(V.Local.iRows)
+
+F.Intrinsic.Debug.stop
+F.Intrinsic.String.Concat("SELECT ORDER_NO, SEQ,VENDOR,PERCENT_COMM FROM ATG_COMMISSION_TABLE WHERE ORDER_NO='",V.Global.sOrderNo,"' ORDER BY SEQ ASC",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstLoad",V.Local.sQuery)
+
+F.Intrinsic.Control.If(V.ODBC.conx!rstLoad.EOF,=,True)
+	Gui.F_Commission.gsfgCommissions.Rows(2)
+	Gui.F_Commission.gsfgCommissions.ApplyStyle(1,1)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstLoad.EOF,=,True)
+	V.Local.iR.Set(V.Local.iRows)
+	F.Intrinsic.Math.Add(V.Local.iRows,1,V.Local.iRows)
+	Gui.F_Commission.gsfgCommissions.Rows(V.Local.iRows)
+	Gui.F_Commission.gsfgCommissions.Textmatrix(0,V.Local.iR,V.Global.sOrderNo)
+	Gui.F_Commission.gsfgCommissions.Textmatrix(1,V.Local.iR,V.ODBC.conx!rstLoad.FieldValTrim!SEQ)
+	Gui.F_Commission.gsfgCommissions.TextMatrix(2,V.Local.iR,V.ODBC.conx!rstLoad.FieldValTrim!VENDOR)
+	F.Intrinsic.String.Format(V.ODBC.conx!rstLoad.FieldValTrim!PERCENT_COMM,"#0.00",V.Local.sTemp)
+	Gui.F_Commission.gsfgCommissions.TextMatrix(3,V.Local.iR,V.Local.sTemp)
+	Gui.F_Commission.gsfgCommissions.ApplyStyle(V.Local.iR,1)
+
+	F.ODBC.conx!rstLoad.MoveNext
+F.Intrinsic.Control.Loop
+
+Gui.F_Commission.gsfgCommissions.Fixedrows(1)
+
+F.ODBC.conx!rstLoad.Close
+
+Gui.F_Commission..Show
+
+Program.Sub.LoadVendors.End
+
+program.sub.cmdsave_click.start
+Gui.F_Commission..Enabled(False)
+F.Intrinsic.Control.CallSub("Save")
+Gui.F_Commission..Enabled(True)
+
+program.sub.cmdsave_click.end
+
+program.sub.cmdadd_click.start
+V.Local.sSQL.Declare(String)
+V.Local.sCol.Declare(String)
+V.Local.sColW.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.iSeq.Declare(Long)
+V.Local.iRows.Declare(Long)
+V.Local.sTemp.Declare(String)
+'F.Intrinsic.Debug.InvokeDebugger
+F.Intrinsic.Debug.stop
+
+Gui.F_Commission..Enabled(False)
+Gui.F_Commission..Visible(False)
+
+F.Intrinsic.String.Split("Vendor No*!*Vendor Name","*!*",V.Local.sCol)
+F.Intrinsic.String.Split("1000*!*3000","*!*",V.Local.sColW)
+'V.Local.ssql.Set("SELECT VENDOR, NAME_VENDOR FROM VENDOR_MASTER WHERE CODE_SORT LIKE 'X%'")
+V.Local.ssql.Set("SELECT VENDOR, NAME_VENDOR FROM VENDOR_MASTER WHERE CODE_SORT= 'Y'")
+F.Intrinsic.UI.Browser("Select a vendor","conx",V.Local.sSQL,V.Local.sCol,V.Local.sColW,400,400,V.Local.sRet)
+
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	F.Intrinsic.String.Concat("SELECT TOP 1 * FROM ATG_COMMISSION_TABLE WHERE ORDER_NO='",V.Global.sOrderNo,"' ORDER BY SEQ DESC",V.Local.sSQL)
+	F.ODBC.Connection!conx.OpenRecordsetRW("rstAdd",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstAdd.EOF,=,True)
+		V.Local.iSeq.Set(1)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.Add(V.ODBC.conx!rstAdd.FieldValTrim!SEQ,1,V.Local.iSeq)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstAdd.AddNew
+	F.ODBC.conx!rstAdd.Set!ORDER_NO(V.Global.sOrderNo)
+	F.ODBC.conx!rstAdd.Set!SEQ(V.Local.iSeq)
+	F.ODBC.conx!rstAdd.Set!VENDOR(V.Local.sRet(0))
+	F.ODBC.conx!rstAdd.Set!PERCENT_COMM(0)
+	F.ODBC.conx!rstAdd.Update
+	F.ODBC.conx!rstAdd.Close
+
+	Gui.F_Commission.gsfgCommissions.GetTextMatrix(1,1,V.Local.sTemp)
+	F.Intrinsic.Control.If(V.Local.sTemp,<>,"")
+		F.Intrinsic.Math.Add(V.Screen.F_Commission!gsfgCommissions.Rows,1,V.Local.iRows)
+		Gui.F_Commission.gsfgCommissions.Rows(V.Local.iRows)
+		F.Intrinsic.Math.Sub(V.Local.iRows,1,V.Local.iRows)
+	F.Intrinsic.Control.Else
+		V.Local.iRows.Set(1)
+	F.Intrinsic.Control.EndIf
+	Gui.F_Commission.gsfgCommissions.TextMatrix(0,V.Local.iRows,V.Global.sOrderNo)
+	Gui.F_Commission.gsfgCommissions.TextMatrix(1,V.Local.iRows,V.Local.iSeq)
+	Gui.F_Commission.gsfgCommissions.TextMatrix(2,V.Local.iRows,V.Local.sRet(0))
+	Gui.F_Commission.gsfgCommissions.TextMatrix(3,V.Local.iRows,"0.00")
+	Gui.F_Commission.gsfgCommissions.ApplyStyle(V.Local.iRows,1)
+	Gui.F_Commission.gsfgCommissions.FixedRows(1)
+'	F.Intrinsic.Control.CallSub("LoadVendors")
+F.Intrinsic.Control.EndIf
+Gui.F_Commission..Enabled(True)
+Gui.F_Commission..Visible(True)
+
+program.sub.cmdadd_click.end
+
+program.sub.gsfgcommissions_commandclick.start
+Gui.F_Commission..Enabled(False)
+V.Local.sSQL.Declare(String)
+V.Local.iSeq.Declare(String)
+V.Local.sRet.Declare(String)
+
+Gui.F_Commission.gsfgCommissions.GetTextMatrix(1,V.Args.key,V.Local.iSeq)
+F.Intrinsic.Control.If(V.Local.iSeq,<>,"")
+	F.Intrinsic.String.Concat("Are you sure you want to delete sequence ",V.Local.iSeq,"?",V.Local.sSQL)
+	F.Intrinsic.UI.Msgbox(V.Local.sSQL,"Delete Sequence",4,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,=,6)
+		F.Intrinsic.String.Concat("DELETE FROM ATG_COMMISSION_TABLE WHERE ORDER_NO='",V.Global.sOrderNo,"' AND SEQ=",V.Local.iSeq,V.Local.sSQL)
+		F.ODBC.Connection!conx.Execute(V.Local.sSQL)
+		F.Intrinsic.String.Concat("UPDATE ATG_COMMISSION_TABLE SET SEQ=(SEQ-1) WHERE ORDER_NO='",V.Global.sOrderNo,"' AND SEQ>",V.Local.iSeq,V.Local.sSQL)
+		F.ODBC.Connection!conx.Execute(V.Local.sSQL)
+		F.Intrinsic.Control.CallSub("LoadVendors")
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+Gui.F_Commission..Enabled(True)
+
+program.sub.gsfgcommissions_commandclick.end
+
+program.sub.gsfgcommissions_cellenter.start
+V.Local.sRow.Declare(String)
+
+F.Intrinsic.Control.If(V.Args.Column,=,3)
+	Gui.F_Commission.gsfgCommissions.ReadRow(V.args.key,V.Local.sRow)
+	F.Intrinsic.Control.If(V.Local.sRow,<>,"")
+		Gui.F_Commission..Enabled(False)
+		F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+		V.Global.sOldValue.Set(V.Local.sRow(3))
+		V.Global.Row.Set(V.Args.key)
+
+		Gui.F_Percent.txtOrderNo.text(V.Local.sRow(0))
+		Gui.F_Percent.txtSeq.Text(V.Local.sRow(1))
+		Gui.F_Percent.txtVendor.Text(V.Local.sRow(2))
+		Gui.F_Percent.txtPercent.Text(V.Local.sRow(3))
+		Gui.F_Percent.txtPercent.SetFocus
+		Gui.F_Percent..Show
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+program.sub.gsfgcommissions_cellenter.end
+
+Program.Sub.Save.Start
+V.Local.iRows.Declare(Long,1)
+V.Local.iR.Declare(Long)
+V.Local.sRow.Declare(String)
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.Math.Add(V.Screen.F_Commission!gsfgCommissions.Rows,-1,V.Local.iRows)
+
+F.Intrinsic.Control.For(V.Local.iR,1,V.Local.iRows,1)
+	Gui.F_Commission.gsfgCommissions.ReadRow(V.Local.iR,V.Local.sRow)
+	F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+	
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_COMMISSION_TABLE WHERE ORDER_NO='",V.Global.sOrderNo,"' AND SEQ=",V.Local.sRow(1),V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRW("rstSave",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstSave.EOF,=,True)
+		F.ODBC.conx!rstSave.AddNew
+		F.ODBC.conx!rstSave.Set!ORDER_NO(V.Global.sOrderNo)
+		F.ODBC.conx!rstSave.Set!SEQ(V.Local.sRow(1))
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstSave.Set!VENDOR(V.Local.sRow(2))
+	F.ODBC.conx!rstSave.Set!PERCENT_COMM(V.Local.sRow(3))
+	F.ODBC.conx!rstSave.Update
+	F.ODBC.conx!rstSave.Close
+F.Intrinsic.Control.Next(V.Local.iR)
+
+F.Intrinsic.Control.CallSub("F_Commission_Unload")
+
+Program.Sub.Save.End
+
+program.sub.f_commission_resize.start
+V.Local.iWidth.Declare(Long)
+V.Local.iHeight.Declare(Long)
+V.Local.gWidth.Declare(Long)
+
+F.Intrinsic.Control.If(V.Screen.F_Commission.Height,<,4000)
+	Gui.F_Commission..Size(V.Screen.F_Commission.Width,4000)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Commission.Width,<,6900)
+	Gui.F_Commission..Size(6900,V.Screen.F_Commission.Height)
+F.Intrinsic.Control.endif
+
+F.Intrinsic.Math.Sub(V.Screen.F_Commission.Height,1200,V.Local.iHeight)
+F.Intrinsic.Math.Sub(V.Screen.F_Commission.Width,450,V.Local.iWidth)
+Gui.F_Commission.gsfgCommissions.Size(V.Local.iWidth,V.Local.iHeight)
+
+F.Intrinsic.Math.Add(V.Local.iHeight,200,V.Local.iHeight)
+Gui.F_Commission.cmdAdd.Position(V.Screen.F_Commission!cmdAdd.Left,V.Local.iHeight)
+Gui.F_Commission.cmdSave.Position(V.screen.F_Commission!cmdSave.left,V.Local.iHeight)
+
+F.Intrinsic.Control.If(V.Screen.F_Commission!gsfgCommissions.Width,>,6450)
+	F.Intrinsic.Math.Add(V.Screen.F_Commission!gsfgCommissions.Width,-350,V.Local.gWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.2459016,V.Local.iWidth)
+	Gui.F_Commission.gsfgCommissions.ColWidth(0,V.Local.iWidth)
+	Gui.F_Commission.gsfgCommissions.ColWidth(2,V.Local.iWidth)
+	Gui.F_Commission.gsfgCommissions.ColWidth(3,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.1639344,V.Local.iWidth)
+	Gui.F_Commission.gsfgCommissions.ColWidth(1,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.0983607,V.Local.iWidth)
+	Gui.F_Commission.gsfgCommissions.ColWidth(4,V.Local.iWidth)
+F.Intrinsic.Control.Else
+	Gui.F_Commission.gsfgCommissions.ColWidth(0,1500)
+	Gui.F_Commission.gsfgCommissions.ColWidth(1,1000)
+	Gui.F_Commission.gsfgCommissions.ColWidth(2,1500)
+	Gui.F_Commission.gsfgCommissions.ColWidth(3,1500)
+	Gui.F_Commission.gsfgCommissions.ColWidth(4,600)
+F.Intrinsic.Control.EndIf
+
+program.sub.f_commission_resize.end
+
+program.sub.f_percent_unload.start
+Gui.F_Percent..Visible(False)
+Gui.F_Commission..Enabled(True)
+V.Global.Row.Set(-1)
+V.Global.sOldValue.Set("0.00")
+
+program.sub.f_percent_unload.end
+
+program.sub.cmdsaveseq_click.start
+V.Local.sQuery.Declare(String)
+V.Local.fSum.Declare(Float,0)
+V.Local.iR.Declare(Long)
+V.Local.iRows.Declare(Long)
+V.Local.iCurrRow.Declare(Long)
+V.Local.iTemp.Declare(Float)
+V.Local.sTemp.Declare(String)
+
+F.Intrinsic.Control.If(V.Screen.F_Percent!txtPercent.Text,>,1)
+	F.Intrinsic.UI.Msgbox("Percent must be between 0 and 1.")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Percent!txtPercent.Text,<,0)
+	F.Intrinsic.UI.Msgbox("Percent must be between 0 and 1.")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Math.Add(V.Screen.F_Commission!gsfgCommissions.Rows,-1,V.Local.iRows)
+V.Local.iCurrRow.Set(V.Global.Row)
+F.Intrinsic.Control.For(V.Local.iR,1,V.Local.iRows,1)
+	F.Intrinsic.Control.If(V.Local.iR,<>,V.Local.iCurrRow)
+		Gui.F_Commission.gsfgCommissions.GetTextMatrix(3,V.Local.iR,V.Local.iTemp)
+		F.Intrinsic.Math.add(V.Local.fSum,V.Local.iTemp,V.Local.fSum)
+	F.Intrinsic.Control.Endif
+F.Intrinsic.Control.Next(V.Local.iR)
+F.Intrinsic.Math.Add(V.Screen.F_Percent!txtPercent.Text,V.Local.fSum,V.Local.fSum)
+F.Intrinsic.Control.If(V.Local.fSum,>,1)
+	F.Intrinsic.UI.Msgbox("Sum of sequences cannot exceed 1")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'F.Intrinsic.Debug.InvokeDebugger
+F.Intrinsic.Debug.Stop
+
+Gui.F_Percent..Visible(False)
+F.Intrinsic.String.Concat("SELECT * FROM ATG_COMMISSION_TABLE WHERE ORDER_NO='",V.Global.sOrderNo,"' AND SEQ=",V.Screen.F_Percent!txtSeq.Text,V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRW("rstSave",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstSave.EOF,=,True)
+	F.ODBC.conx!rstSave.AddNew
+	F.ODBC.conx!rstSave.Set!ORDER_NO(V.Global.sOrderNo)
+	F.ODBC.conx!rstSave.Set!SEQ(V.Screen.F_Percent!txtSeq.Text)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstSave.Set!VENDOR(V.Screen.F_Percent!txtVendor.Text)
+F.ODBC.conx!rstSave.Set!PERCENT_COMM(V.Screen.F_Percent!txtPercent.Text)
+F.ODBC.conx!rstSave.Update
+F.ODBC.conx!rstSave.Close
+
+f.Intrinsic.String.Format(V.Screen.F_Percent!txtPercent.Text,"#0.00",V.Local.sTemp)
+Gui.F_Commission.gsfgCommissions.TextMatrix(3,V.Local.iCurrRow,V.Local.sTemp)
+V.Global.Row.Set(-1)
+V.Global.sOldValue.Set("0.00")
+Gui.F_Commission..Enabled(True)
+
+
+program.sub.cmdsaveseq_click.end
+
+program.sub.txtpercent_gotfocus.start
+gui.F_Percent.txtPercent.SelectAll
+
+program.sub.txtpercent_gotfocus.end
+
+
